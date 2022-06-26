@@ -1,0 +1,11 @@
+{
+  "extends": "@antfu",
+  "rules": {
+    "no-console": "warn",
+    "curly": "off",
+    "vue/component-tags-order": [
+      "error",
+      { "order": ["template", "script", "style"] }
+    ]
+  }
+}
