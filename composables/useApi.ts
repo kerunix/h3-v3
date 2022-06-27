@@ -3,6 +3,10 @@ import type { AxiosRequestConfig, AxiosResponse } from 'axios'
 export default function useApi() {
   const { $http } = useNuxtApp()
 
+  function setApiAuthToken(token: string) {
+    $http.defaults.headers.common.Authorization = `Bearer ${token}`
+  }
+
   function apiGet<T = any, R = AxiosResponse<T>, D = any>(url: string, config?: AxiosRequestConfig<D>) {
     return $http.get<T, R, D>(url, config)
   }
@@ -24,5 +28,6 @@ export default function useApi() {
     apiPost,
     apiPatch,
     apiDelete,
+    setApiAuthToken,
   }
 }

@@ -49,15 +49,15 @@ import { object, string } from 'yup'
 type LoginForm = InferType<typeof schema>
 interface ILoginResponse {
   id: number
-  user: Record<string, any>
+  user: number
   token: string
   refreshToken: string
   expiresAt: string
 }
 
 const { t } = useI18n()
-const { apiPost } = useApi()
-const authCookie = useCookie('us-auth')
+const { apiGet, apiPost, setApiAuthToken } = useApi()
+const authCookie = useCookie('us-auth', { sameSite: 'lax' })
 
 const schema = object().shape({
   email: string()
@@ -72,13 +72,16 @@ const {
   onSubmit,
   submissionErrors,
   isSubmitting,
-  resetState,
+  resetState: resetErrors,
 } = useFormSubmission(submit)
 
 async function submit(form: LoginForm) {
-  resetState()
-  const { data: { token } } = await apiPost<ILoginResponse>('/auth/login', form[0])
+  resetErrors()
+  const { data: { token, user } } = await apiPost<ILoginResponse>('/auth/login', form[0])
   authCookie.value = token
+  setApiAuthToken(token)
+
+  const loggedInUser = await apiGet<Models.User>(`/users/${user}`)
 }
 
 function validateIdentifier(value: string | undefined, { path, createError }: TestContext) {
