@@ -24,6 +24,14 @@ export const vite: UserConfig = {
             }
           }
         },
+        (name) => {
+          if (['Form', 'Field', 'ErrorMessage', 'FieldArray'].includes(name)) {
+            return {
+              name,
+              from: 'vee-validate',
+            }
+          }
+        },
       ],
     }),
     AutoImport({
@@ -34,6 +42,7 @@ export const vite: UserConfig = {
       ],
       imports: [
         'vue-i18n',
+        { 'vee-validate': ['useField'] },
       ],
     }),
   ],

@@ -1,2 +1,8 @@
-base:
-  button: récupérer un post
+auth:
+  login:
+    title: Connexion
+    remember_me: se souvenir de moi
+    forgot_password: mot de passe oublié ?
+
+actions:
+  validate: valider

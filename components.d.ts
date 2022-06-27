@@ -9,6 +9,8 @@ declare module '@vue/runtime-core' {
     Disclosure: typeof import('@headlessui/vue')['Disclosure']
     DisclosureButton: typeof import('@headlessui/vue')['DisclosureButton']
     DisclosurePanel: typeof import('@headlessui/vue')['DisclosurePanel']
+    Form: typeof import('vee-validate')['Form']
+    LockClosedIconSolid: typeof import('@heroicons/vue/solid')['LockClosedIcon']
     Menu: typeof import('@headlessui/vue')['Menu']
     MenuButton: typeof import('@headlessui/vue')['MenuButton']
     MenuIconOutline: typeof import('@heroicons/vue/outline')['MenuIcon']

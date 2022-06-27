@@ -1,2 +1,20 @@
-base:
-  button: click me to fecth a post
+auth:
+  login:
+    title: Login
+    remember_me: Remember me
+    forgot_password: Forgot your password ?
+
+actions:
+  validate: Validate
+
+forms:
+  fields:
+    email: Email
+    identifier: Email or username
+    password: Password 
+  errors:
+    email:
+      required: Your identifier is required
+      invalid: This field must be a valid email address
+    password:
+      required: Your password field is required
