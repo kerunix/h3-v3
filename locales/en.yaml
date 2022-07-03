@@ -4,6 +4,16 @@ auth:
     remember_me: Remember me
     forgot_password: Forgot your password ?
 
+routes:
+  domains: Domains
+  providers: Providers
+
+admin:
+  providers_page:
+    title: Unicstay providers
+  domains_page:
+    title: Unicstay domains
+
 actions:
   validate: Validate
 
@@ -17,4 +27,4 @@ forms:
       required: Your identifier is required
       invalid: This field must be a valid email address
     password:
-      required: Your password field is required
+      required: Your password is required

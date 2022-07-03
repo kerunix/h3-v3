@@ -5,6 +5,7 @@ export default defineNuxtPlugin(() => {
 
   const http = axios.create({
     baseURL,
+    headers: useRequestHeaders(),
   })
 
   // Additional axios config here

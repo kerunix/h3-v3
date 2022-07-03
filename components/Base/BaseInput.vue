@@ -1,6 +1,6 @@
 <template>
   <div class="space-y-2">
-    <label :for="name" class="text-gray-100">
+    <label :for="name" class="text-gray-800 dark:text-gray-100">
       {{ label }}
       <span v-if="isRequired">*</span>
     </label>

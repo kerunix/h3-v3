@@ -41,8 +41,20 @@ export const vite: UserConfig = {
         /\.vue\??/, // .vue
       ],
       imports: [
+        'pinia',
         'vue-i18n',
-        { 'vee-validate': ['useField'] },
+
+        {
+          'vee-validate': ['useField'],
+          '@vueuse/core': [
+            'useDark',
+            'useToggle',
+            'useVModel',
+          ],
+        },
+      ],
+      dirs: [
+        './stores',
       ],
     }),
   ],

@@ -1,8 +1,24 @@
 auth:
   login:
     title: Connexion
-    remember_me: se souvenir de moi
-    forgot_password: mot de passe oublié ?
+    remember_me: Rester connecté
+    forgot_password: Mot de passe oublié ?
+
+admin:
+  providers_page:
+    title: Clients Unicstay
 
 actions:
-  validate: valider
+  validate: Valider
+
+forms:
+  fields:
+    email: Email
+    identifier: Email ou identifiant
+    password: Mot de passe
+  errors:
+    email:
+      required: Votre identifiant est requis
+      invalid: Cette adresse email n'est pas valide
+    password:
+      required: Votre mot de passe est requis

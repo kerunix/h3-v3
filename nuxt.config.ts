@@ -1,11 +1,17 @@
 import { defineNuxtConfig } from 'nuxt'
 import { runtimeConfig, vite, vueI18n } from './configs'
 
-// https://v3.nuxtjs.org/api/configuration/nuxt.config
+/**
+ * Don't add any hardcoded config in here, instead extract it in its own file in ./configs and export it from ./configs/index.ts
+ * This helps keeping this file clean since it can get pretty messy with time
+ */
 export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     '@intlify/nuxt3',
+  ],
+  buildModules: [
+    '@pinia/nuxt',
   ],
   vite,
   runtimeConfig,

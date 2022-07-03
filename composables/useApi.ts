@@ -8,7 +8,12 @@ export default function useApi() {
   }
 
   function apiGet<T = any, R = AxiosResponse<T>, D = any>(url: string, config?: AxiosRequestConfig<D>) {
-    return $http.get<T, R, D>(url, config)
+    try {
+      return $http.get<T, R, D>(url, config)
+    }
+    catch (error) {
+      throwError(error)
+    }
   }
 
   function apiPost<T = any, R = AxiosResponse<T>, D = any>(url: string, data?: D, config?: AxiosRequestConfig<D>) {

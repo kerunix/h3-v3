@@ -1,13 +1,15 @@
 <template>
-  <div class="min-h-screen flex flex-col items-center justify-center space-y-12 py-12 px-4 bg-slate-900 sm:px-6 lg:px-8">
-    <IconsUSLogoText class="h-14 md:h-20" />
-    <div class="max-w-md w-full space-y-8 p-4 bg-slate-800 rounded shadow-md md:p-8">
+  <div class="min-h-screen flex flex-col items-center justify-center space-y-12 py-12 px-4 bg-gray-300 dark:bg-gray-900 sm:px-6 lg:px-8">
+    <IconsUSLogoWhiteText v-if="isDark" class="h-14 md:h-20" />
+    <IconsUSLogoDarkText v-else class="h-14 md:h-20" />
+    <div class="max-w-md w-full space-y-8 p-4 bg-gray-200 dark:bg-gray-800 rounded shadow-md md:p-8">
       <div class="flex flex-col items-center">
-        <h1 class="mt-6 text-center text-3xl font-extrabold text-gray-50">
+        <BaseHeading level="h1">
           {{ t('auth.login.title') }}
-        </h1>
+        </BaseHeading>
       </div>
       <Form
+        v-slot="{ meta }"
         :validation-schema="schema"
         class="mt-8 space-y-6"
         @submit="onSubmit"
@@ -20,23 +22,20 @@
               id="remember-me" name="remember-me" type="checkbox"
               class="h-4 w-4 text-turquoise-600 focus:ring-turquoise-500 border-gray-300 rounded"
             >
-            <label for="remember-me" class="ml-2 block text-sm text-gray-100">{{ t('auth.login.remember_me') }}</label>
+            <label for="remember-me" class="ml-2 block text-sm text-gray-800 dark:text-gray-100">{{ t('auth.login.remember_me') }}</label>
           </div>
 
           <div class="text-sm">
-            <a href="#" class="font-medium text-turquoise-50 hover:text-turquoise-300">{{ t('auth.login.forgot_password') }}</a>
+            <a href="#" class="font-medium text-turquoise-800 dark:text-turquoise-50 hover:text-turquoise-300">{{ t('auth.login.forgot_password') }}</a>
           </div>
         </div>
         <BaseErrorMessage :errors="submissionErrors" />
-        <div>
-          <button
-            type="submit"
-            :disabled="isSubmitting"
-            class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded text-white bg-turquoise-600 hover:bg-turquoise-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-turquoise-500"
-          >
-            {{ t('actions.validate') }}
-          </button>
-        </div>
+        <BaseButton
+          type="submit"
+          :disabled="isSubmitting || !meta.valid"
+        >
+          {{ t('actions.validate') }}
+        </BaseButton>
       </Form>
     </div>
   </div>
@@ -45,19 +44,18 @@
 <script lang="ts" setup>
 import type { InferType, TestContext } from 'yup'
 import { object, string } from 'yup'
+import type { AuthCookie, LoginResponse } from '~~/types'
 
 type LoginForm = InferType<typeof schema>
-interface ILoginResponse {
-  id: number
-  user: number
-  token: string
-  refreshToken: string
-  expiresAt: string
-}
 
 const { t } = useI18n()
 const { apiGet, apiPost, setApiAuthToken } = useApi()
-const authCookie = useCookie('us-auth', { sameSite: 'lax' })
+
+const userStore = useUserStore()
+
+const authCookie = useCookie<AuthCookie>('us-auth', { sameSite: 'lax' })
+
+const { isDark } = useDarkMode()
 
 const schema = object().shape({
   email: string()
@@ -77,11 +75,17 @@ const {
 
 async function submit(form: LoginForm) {
   resetErrors()
-  const { data: { token, user } } = await apiPost<ILoginResponse>('/auth/login', form[0])
-  authCookie.value = token
+  const { data: { token, user, refreshToken, expiresAt } } = await apiPost<LoginResponse>('/auth/login', form[0])
+  authCookie.value = { token, refreshToken, expiresAt }
   setApiAuthToken(token)
 
-  const loggedInUser = await apiGet<Models.User>(`/users/${user}`)
+  const { data: loggedInUser } = await apiGet<Models.User>(`/users/${user}`)
+
+  userStore.setCurrentUser(loggedInUser)
+
+  await navigateTo({
+    path: '/admin/providers',
+  })
 }
 
 function validateIdentifier(value: string | undefined, { path, createError }: TestContext) {
