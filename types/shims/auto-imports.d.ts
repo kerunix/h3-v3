@@ -13,7 +13,6 @@ declare global {
   const setActivePinia: typeof import('pinia')['setActivePinia']
   const setMapStoreSuffix: typeof import('pinia')['setMapStoreSuffix']
   const storeToRefs: typeof import('pinia')['storeToRefs']
-  const useDark: typeof import('@vueuse/core')['useDark']
   const useField: typeof import('vee-validate')['useField']
   const useI18n: typeof import('vue-i18n')['useI18n']
   const useToggle: typeof import('@vueuse/core')['useToggle']

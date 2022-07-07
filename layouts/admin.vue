@@ -5,14 +5,14 @@
       :nav-items="navigation"
       @sidebar-close="onClose"
     >
-      <button @click="toggleDark(!isDark)">
+      <button @click="toggleColorMode">
         <MoonIconOutline v-if="isDark" class="h-6 w-6 text-gray-800 hover:text-turquoise-900 dark:text-gray-300 dark:hover:text-turquoise-400" />
         <SunIconOutline v-else class="h-6 w-6 text-gray-800 hover:text-turquoise-900 dark:text-gray-300 dark:hover:text-turquoise-400" />
       </button>
       <BaseLocaleSelect v-model="storedLocale" />
     </NavMobile>
     <NavDesktop :nav-items="navigation">
-      <button @click="toggleDark(!isDark)">
+      <button @click="toggleColorMode">
         <MoonIconOutline v-if="isDark" class="h-6 w-6 text-gray-800 hover:text-turquoise-900 dark:text-gray-300 dark:hover:text-turquoise-400" />
         <SunIconOutline v-else class="h-6 w-6 text-gray-800 hover:text-turquoise-900 dark:text-gray-300 dark:hover:text-turquoise-400" />
       </button>
@@ -50,7 +50,7 @@ const { getRoutes } = useRouter()
 const storedLocale = useStorage('us_locale', locale)
 const route = useRoute()
 
-const { isDark, toggleDark } = useDarkMode()
+const { isDark, toggleColorMode } = useDarkMode()
 
 locale.value = storedLocale.value
 

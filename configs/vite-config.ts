@@ -47,7 +47,6 @@ export const vite: UserConfig = {
         {
           'vee-validate': ['useField'],
           '@vueuse/core': [
-            'useDark',
             'useToggle',
             'useVModel',
           ],

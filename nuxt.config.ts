@@ -1,5 +1,5 @@
 import { defineNuxtConfig } from 'nuxt'
-import { runtimeConfig, vite, vueI18n } from './configs'
+import { colorMode, runtimeConfig, vite, vueI18n } from './configs'
 
 /**
  * Don't add any hardcoded config in here, instead extract it in its own file in ./configs and export it from ./configs/index.ts
@@ -9,11 +9,13 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     '@intlify/nuxt3',
+    '@nuxtjs/color-mode',
   ],
   buildModules: [
     '@pinia/nuxt',
   ],
-  vite,
+  colorMode,
   runtimeConfig,
+  vite,
   vueI18n,
 })

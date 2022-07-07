@@ -1,16 +1,12 @@
 export default function useDarkMode() {
-  const isDark = useDark({
-    storageKey: 'us-theme',
-    selector: 'body',
-    attribute: 'class',
-    valueDark: 'dark',
-    valueLight: '',
-  })
+  const isDark = computed(() => useColorMode().preference === 'dark')
 
-  const toggleDark = useToggle(isDark)
+  function toggleColorMode() {
+    useColorMode().preference = useColorMode().preference === 'dark' ? 'light' : 'dark'
+  }
 
   return {
     isDark,
-    toggleDark,
+    toggleColorMode,
   }
 }
