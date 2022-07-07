@@ -32,6 +32,7 @@ declare module '@vue/runtime-core' {
     SunIconOutline: typeof import('@heroicons/vue/outline')['SunIcon']
     TransitionChild: typeof import('@headlessui/vue')['TransitionChild']
     TransitionRoot: typeof import('@headlessui/vue')['TransitionRoot']
+    VeeForm: typeof import('vee-validate')['Form']
     XIconOutline: typeof import('@heroicons/vue/outline')['XIcon']
   }
 }

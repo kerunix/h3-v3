@@ -54,6 +54,9 @@ export const vite: UserConfig = {
       ],
       dirs: [
         './stores',
+        './utils',
+        './configs',
+        './constants',
       ],
     }),
   ],
