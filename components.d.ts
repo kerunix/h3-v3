@@ -7,6 +7,9 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     BellIconOutline: typeof import('@heroicons/vue/outline')['BellIcon']
     ChevronDownIconOutline: typeof import('@heroicons/vue/outline')['ChevronDownIcon']
+    ChevronLeftIconOutline: typeof import('@heroicons/vue/outline')['ChevronLeftIcon']
+    ChevronRightIconOutline: typeof import('@heroicons/vue/outline')['ChevronRightIcon']
+    ChevronUpIconOutline: typeof import('@heroicons/vue/outline')['ChevronUpIcon']
     Dialog: typeof import('@headlessui/vue')['Dialog']
     DialogPanel: typeof import('@headlessui/vue')['DialogPanel']
     Disclosure: typeof import('@headlessui/vue')['Disclosure']
