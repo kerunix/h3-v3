@@ -126,7 +126,7 @@ function onGoToPage(page: number) {
   paginationState.current_page = page
 }
 
-provide('TABLE_STATE_KEY', {
+provide(TABLE_STATE_KEY, {
   activeItem,
   registerHeaderItem,
   setActiveItem,
