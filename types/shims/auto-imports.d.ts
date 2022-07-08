@@ -19,6 +19,7 @@ declare global {
   const storeToRefs: typeof import('pinia')['storeToRefs']
   const useField: typeof import('vee-validate')['useField']
   const useI18n: typeof import('vue-i18n')['useI18n']
+  const useStorage: typeof import('@vueuse/core')['useStorage']
   const useToggle: typeof import('@vueuse/core')['useToggle']
   const useUserStore: typeof import('../../stores/user.store')['useUserStore']
   const useVModel: typeof import('@vueuse/core')['useVModel']

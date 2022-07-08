@@ -48,6 +48,7 @@ export const vite: UserConfig = {
           '@vueuse/core': [
             'useToggle',
             'useVModel',
+            'useStorage',
           ],
         },
       ],

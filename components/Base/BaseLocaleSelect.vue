@@ -1,18 +1,16 @@
 <script lang="ts" setup>
-const props = defineProps<{
-  modelValue: string
-}>()
-const emit = defineEmits(['update:modelValue'])
+const { locale } = useI18n()
 
 const supportedLocales = ['en', 'fr']
 
-const selectedLocale = useVModel(props, 'modelValue', emit)
+const storedLocale = useStorage('us-locale', locale)
+locale.value = storedLocale.value
 </script>
 
 <template>
-  <Listbox v-model="selectedLocale">
+  <Listbox v-model="storedLocale">
     <div class="relative">
-      <ListboxButton>{{ selectedLocale.toUpperCase() }}</ListboxButton>
+      <ListboxButton>{{ storedLocale.toUpperCase() }}</ListboxButton>
       <transition
         leave-active-class="transition duration-100 ease-in"
         leave-from-class="opacity-100"
@@ -20,12 +18,12 @@ const selectedLocale = useVModel(props, 'modelValue', emit)
       >
         <ListboxOptions class="absolute bottom-10 bg-white dark:bg-gray-900 shadow rounded">
           <ListboxOption
-            v-for="locale in supportedLocales"
-            :key="locale"
-            :value="locale"
+            v-for="possibleLocale in supportedLocales"
+            :key="possibleLocale"
+            :value="possibleLocale"
             class="hover:cursor-pointer p-2 text-gray-800 dark:text-gray-50 hover:bg-gray-200 hover:dark:bg-gray-700 hover:rounded"
           >
-            {{ locale.toUpperCase() }}
+            {{ possibleLocale.toUpperCase() }}
           </ListboxOption>
         </ListboxOptions>
       </transition>

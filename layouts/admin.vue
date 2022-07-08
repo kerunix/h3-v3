@@ -1,15 +1,11 @@
 <script setup lang="ts">
-import { useStorage } from '@vueuse/core'
 import type { INavItem } from '~~/types'
 
-const { t, locale } = useI18n()
+const { t } = useI18n()
 const { getRoutes } = useRouter()
-const storedLocale = useStorage('us-locale', locale)
 const route = useRoute()
 
 const { isDark, toggleColorMode } = useDarkMode()
-
-locale.value = storedLocale.value
 
 const navigation = ref<INavItem[]>([])
 const sidebarOpen = ref(false)
@@ -44,14 +40,14 @@ function onClose() {
         <MoonIconOutline v-if="isDark" class="h-6 w-6 text-gray-800 hover:text-turquoise-900 dark:text-gray-300 dark:hover:text-turquoise-400" />
         <SunIconOutline v-else class="h-6 w-6 text-gray-800 hover:text-turquoise-900 dark:text-gray-300 dark:hover:text-turquoise-400" />
       </button>
-      <BaseLocaleSelect v-model="storedLocale" />
+      <BaseLocaleSelect />
     </NavMobile>
     <NavDesktop :nav-items="navigation">
       <button @click="toggleColorMode">
         <MoonIconOutline v-if="isDark" class="h-6 w-6 text-gray-800 hover:text-turquoise-900 dark:text-gray-300 dark:hover:text-turquoise-400" />
         <SunIconOutline v-else class="h-6 w-6 text-gray-800 hover:text-turquoise-900 dark:text-gray-300 dark:hover:text-turquoise-400" />
       </button>
-      <BaseLocaleSelect v-model="storedLocale" />
+      <BaseLocaleSelect />
     </NavDesktop>
     <div class="flex flex-col flex-1 divide-y divide-gray-300 dark:divide-gray-700 md:pl-64 md:divide-none">
       <div class="sticky top-0 z-10 md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-gray-100 dark:bg-gray-900">
