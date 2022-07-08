@@ -21,6 +21,7 @@ declare module '@vue/runtime-core' {
     ListboxOption: typeof import('@headlessui/vue')['ListboxOption']
     ListboxOptions: typeof import('@headlessui/vue')['ListboxOptions']
     LockClosedIconSolid: typeof import('@heroicons/vue/solid')['LockClosedIcon']
+    LogoutIconOutline: typeof import('@heroicons/vue/outline')['LogoutIcon']
     Menu: typeof import('@headlessui/vue')['Menu']
     MenuButton: typeof import('@headlessui/vue')['MenuButton']
     MenuIconOutline: typeof import('@heroicons/vue/outline')['MenuIcon']

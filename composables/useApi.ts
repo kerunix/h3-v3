@@ -9,10 +9,10 @@ export default function useApi() {
 
   const authCookie = useCookie<AuthCookie>('us-auth', { sameSite: 'lax' })
 
-  const authHeader = computed(() => `Bearer ${authCookie.value.token}`)
+  const authHeader = computed(() => authCookie.value?.token ? `Bearer ${authCookie.value.token}` : null)
 
   function getFinalOptions(options: ExtendedFetchOptions<any>) {
-    if (options.authenticated === false) {
+    if (options.authenticated === false || !authHeader.value) {
       return { ...options, ...defaultOptions }
     }
     return { headers: { Authorization: authHeader.value, ...options.headers }, ...options, ...defaultOptions }

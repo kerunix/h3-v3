@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import type { INavItem } from '~~/types'
+import type { AuthCookie, INavItem } from '~~/types'
 
 const { t } = useI18n()
 const { getRoutes } = useRouter()
 const route = useRoute()
-
-const { isDark, toggleColorMode } = useDarkMode()
 
 const navigation = ref<INavItem[]>([])
 const sidebarOpen = ref(false)
@@ -27,6 +25,13 @@ watchEffect(() => {
 function onClose() {
   sidebarOpen.value = false
 }
+
+async function onLogoutClick() {
+  const authCookie = useCookie<AuthCookie>('us-auth', { sameSite: 'lax' })
+  authCookie.value = null
+
+  await navigateTo({ name: 'auth-login' })
+}
 </script>
 
 <template>
@@ -36,18 +41,20 @@ function onClose() {
       :nav-items="navigation"
       @sidebar-close="onClose"
     >
-      <button @click="toggleColorMode">
-        <MoonIconOutline v-if="isDark" class="h-6 w-6 text-gray-800 hover:text-turquoise-900 dark:text-gray-300 dark:hover:text-turquoise-400" />
-        <SunIconOutline v-else class="h-6 w-6 text-gray-800 hover:text-turquoise-900 dark:text-gray-300 dark:hover:text-turquoise-400" />
-      </button>
+      <BaseColorModeSwitcher />
       <BaseLocaleSelect />
     </NavMobile>
     <NavDesktop :nav-items="navigation">
-      <button @click="toggleColorMode">
-        <MoonIconOutline v-if="isDark" class="h-6 w-6 text-gray-800 hover:text-turquoise-900 dark:text-gray-300 dark:hover:text-turquoise-400" />
-        <SunIconOutline v-else class="h-6 w-6 text-gray-800 hover:text-turquoise-900 dark:text-gray-300 dark:hover:text-turquoise-400" />
-      </button>
-      <BaseLocaleSelect />
+      <div class="flex-shrink-0 flex items-center justify-between p-4">
+        <div class="flex space-x-6">
+          <BaseColorModeSwitcher />
+          <BaseLocaleSelect />
+        </div>
+        <button @click="onLogoutClick">
+          <span class="sr-only">Logout</span>
+          <LogoutIconOutline class="h-6 w-6 text-gray-800 hover:text-turquoise-900 dark:text-gray-300 dark:hover:text-turquoise-400" />
+        </button>
+      </div>
     </NavDesktop>
     <div class="flex flex-col flex-1 divide-y divide-gray-300 dark:divide-gray-700 md:pl-64 md:divide-none">
       <div class="sticky top-0 z-10 md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-gray-100 dark:bg-gray-900">
