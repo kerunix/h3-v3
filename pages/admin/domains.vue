@@ -1,7 +1,3 @@
-<template>
-  <div>DOMAINS</div>
-</template>
-
 <script lang="ts" setup>
 import { UsersIcon } from '@heroicons/vue/outline'
 
@@ -13,3 +9,7 @@ definePageMeta({
   isMenuRoute: true,
 })
 </script>
+
+<template>
+  <div>DOMAINS</div>
+</template>

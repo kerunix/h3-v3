@@ -1,63 +1,3 @@
-<template>
-  <div class="w-full bg-gray-100 dark:bg-gray-800 px-4 py-3 flex items-center justify-between border-t border-gray-700 shadow ring-1 ring-black ring-opacity-5 md:rounded-b">
-    <div class="flex-1 flex flex-col items-center justify-between space-y-3 md:flex-row md:space-y-0">
-      <div>
-        <p class="text-sm text-gray-700 dark:text-gray-200">
-          Showing
-          {{ ' ' }}
-          <span class="font-medium">{{ from }}</span>
-          {{ ' ' }}
-          to
-          {{ ' ' }}
-          <span class="font-medium">{{ to }}</span>
-          <template v-if="paginationState.total">
-            {{ ' ' }}
-            of
-            {{ ' ' }}
-            <span class="font-medium">{{ paginationState.total }}</span>
-            {{ ' ' }}
-            results
-          </template>
-        </p>
-      </div>
-      <div>
-        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-          <button
-            class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 dark:border-gray-800 text-gray-900 bg-gray-100 dark:bg-gray-700 hover:text-gray-700 dark:text-gray-300 hover:bg-turquoise-500/10 dark:hover:text-turquoise-400"
-            @click="onGoPrevious"
-          >
-            <span class="sr-only">Previous</span>
-            <ChevronLeftIconOutline class="h-5 w-5" aria-hidden="true" />
-          </button>
-          <template v-for="(page, index) in paginationLinks" :key="index">
-            <button
-              v-if="page"
-              :class="[paginationState.current_page === page ? 'bg-turquoise-500 text-gray-50 dark:bg-turquoise-900 dark:text-white' : 'text-gray-900 bg-gray-100 dark:bg-gray-700 hover:text-gray-700 dark:text-gray-300 hover:bg-turquoise-500/10 dark:hover:text-turquoise-400']"
-              class="inline-flex relative items-center px-4 py-2 border text-sm border-gray-300 dark:border-gray-800"
-              @click="onGoToPage(page)"
-            >
-              {{ page }}
-            </button>
-            <span
-              v-else
-              class="relative inline-flex items-center px-4 py-2 border text-sm border-gray-300 dark:border-gray-800 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-300"
-            >
-              ...
-            </span>
-          </template>
-          <button
-            class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 dark:border-gray-800 text-gray-900 bg-gray-100 dark:bg-gray-700 hover:text-gray-700 dark:text-gray-300 hover:bg-turquoise-500/10 dark:hover:text-turquoise-400"
-            @click="onGoNext"
-          >
-            <span class="sr-only">Next</span>
-            <ChevronRightIconOutline class="h-5 w-5" aria-hidden="true" />
-          </button>
-        </nav>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script lang="ts" setup>
 import type { ComputedRef } from 'vue'
 
@@ -138,3 +78,63 @@ function onGoToPage(page: number) {
   }
 }
 </script>
+
+<template>
+  <div class="w-full bg-gray-100 dark:bg-gray-800 px-4 py-3 flex items-center justify-between border-t border-gray-700 shadow ring-1 ring-black ring-opacity-5 md:rounded-b">
+    <div class="flex-1 flex flex-col items-center justify-between space-y-3 md:flex-row md:space-y-0">
+      <div>
+        <p class="text-sm text-gray-700 dark:text-gray-200">
+          Showing
+          {{ ' ' }}
+          <span class="font-medium">{{ from }}</span>
+          {{ ' ' }}
+          to
+          {{ ' ' }}
+          <span class="font-medium">{{ to }}</span>
+          <template v-if="paginationState.total">
+            {{ ' ' }}
+            of
+            {{ ' ' }}
+            <span class="font-medium">{{ paginationState.total }}</span>
+            {{ ' ' }}
+            results
+          </template>
+        </p>
+      </div>
+      <div>
+        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+          <button
+            class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 dark:border-gray-800 text-gray-900 bg-gray-100 dark:bg-gray-700 hover:text-gray-700 dark:text-gray-300 hover:bg-turquoise-500/10 dark:hover:text-turquoise-400"
+            @click="onGoPrevious"
+          >
+            <span class="sr-only">Previous</span>
+            <ChevronLeftIconOutline class="h-5 w-5" aria-hidden="true" />
+          </button>
+          <template v-for="(page, index) in paginationLinks" :key="index">
+            <button
+              v-if="page"
+              :class="[paginationState.current_page === page ? 'bg-turquoise-500 text-gray-50 dark:bg-turquoise-900 dark:text-white' : 'text-gray-900 bg-gray-100 dark:bg-gray-700 hover:text-gray-700 dark:text-gray-300 hover:bg-turquoise-500/10 dark:hover:text-turquoise-400']"
+              class="inline-flex relative items-center px-4 py-2 border text-sm border-gray-300 dark:border-gray-800"
+              @click="onGoToPage(page)"
+            >
+              {{ page }}
+            </button>
+            <span
+              v-else
+              class="relative inline-flex items-center px-4 py-2 border text-sm border-gray-300 dark:border-gray-800 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-300"
+            >
+              ...
+            </span>
+          </template>
+          <button
+            class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 dark:border-gray-800 text-gray-900 bg-gray-100 dark:bg-gray-700 hover:text-gray-700 dark:text-gray-300 hover:bg-turquoise-500/10 dark:hover:text-turquoise-400"
+            @click="onGoNext"
+          >
+            <span class="sr-only">Next</span>
+            <ChevronRightIconOutline class="h-5 w-5" aria-hidden="true" />
+          </button>
+        </nav>
+      </div>
+    </div>
+  </div>
+</template>

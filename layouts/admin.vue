@@ -1,3 +1,38 @@
+<script setup lang="ts">
+import { useStorage } from '@vueuse/core'
+import type { INavItem } from '~~/types'
+
+const { t, locale } = useI18n()
+const { getRoutes } = useRouter()
+const storedLocale = useStorage('us-locale', locale)
+const route = useRoute()
+
+const { isDark, toggleColorMode } = useDarkMode()
+
+locale.value = storedLocale.value
+
+const navigation = ref<INavItem[]>([])
+const sidebarOpen = ref(false)
+
+watchEffect(() => {
+  navigation.value = getRoutes()
+    .filter(r => r.meta.isMenuRoute)
+    .map((r) => {
+      return {
+        name: t(r.meta.routeName),
+        icon: r.meta.icon,
+        href: r,
+        current: route.meta.routeName === r.meta.routeName,
+      }
+    })
+  sidebarOpen.value = false
+})
+
+function onClose() {
+  sidebarOpen.value = false
+}
+</script>
+
 <template>
   <div>
     <NavMobile
@@ -40,38 +75,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useStorage } from '@vueuse/core'
-import type { INavItem } from '~~/types'
-
-const { t, locale } = useI18n()
-const { getRoutes } = useRouter()
-const storedLocale = useStorage('us_locale', locale)
-const route = useRoute()
-
-const { isDark, toggleColorMode } = useDarkMode()
-
-locale.value = storedLocale.value
-
-const navigation = ref<INavItem[]>([])
-const sidebarOpen = ref(false)
-
-watchEffect(() => {
-  navigation.value = getRoutes()
-    .filter(r => r.meta.isMenuRoute)
-    .map((r) => {
-      return {
-        name: t(r.meta.routeName),
-        icon: r.meta.icon,
-        href: r,
-        current: route.meta.routeName === r.meta.routeName,
-      }
-    })
-  sidebarOpen.value = false
-})
-
-function onClose() {
-  sidebarOpen.value = false
-}
-</script>

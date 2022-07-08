@@ -43,7 +43,6 @@ export const vite: UserConfig = {
       imports: [
         'pinia',
         'vue-i18n',
-
         {
           'vee-validate': ['useField'],
           '@vueuse/core': [

@@ -1,9 +1,3 @@
-<template>
-  <span class="inline-flex items-center px-2.5 py-0.5 rounded text-sm font-medium" :class="classes">
-    <slot />
-  </span>
-</template>
-
 <script lang="ts" setup>
 interface Props {
   status: 'MAINTENANCE' | 'ACTIVE' | 'DISABLED'
@@ -24,3 +18,9 @@ const classes = computed(() => {
   }
 })
 </script>
+
+<template>
+  <span class="inline-flex items-center px-2.5 py-0.5 rounded text-sm font-medium" :class="classes">
+    <slot />
+  </span>
+</template>

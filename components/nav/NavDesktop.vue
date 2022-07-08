@@ -1,3 +1,15 @@
+<script lang="ts" setup>
+import type { INavItem } from '~~/types'
+
+interface Props {
+  navItems: INavItem[]
+}
+
+defineProps<Props>()
+
+const { isDark } = useDarkMode()
+</script>
+
 <template>
   <div class="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 md:border-r md:border-gray-300 md:dark:border-gray-700">
     <div class="flex-1 flex flex-col min-h-0 bg-gray-200 dark:bg-gray-900">
@@ -33,15 +45,3 @@
     </div>
   </div>
 </template>
-
-<script lang="ts" setup>
-import type { INavItem } from '~~/types'
-
-interface Props {
-  navItems: INavItem[]
-}
-
-defineProps<Props>()
-
-const { isDark } = useDarkMode()
-</script>

@@ -1,3 +1,26 @@
+<script lang="ts" setup>
+import type { INavItem } from '~~/types'
+
+interface Props {
+  sidebarOpen: boolean
+  navItems: INavItem[]
+}
+
+interface Emits {
+  (e: 'sidebarClose'): void
+}
+
+defineProps<Props>()
+
+const emit = defineEmits<Emits>()
+
+const { isDark } = useDarkMode()
+
+function onClose() {
+  emit('sidebarClose')
+}
+</script>
+
 <template>
   <TransitionRoot as="template" :show="sidebarOpen">
     <Dialog as="div" class="relative z-40 md:hidden" @close="onClose">
@@ -51,26 +74,3 @@
     </Dialog>
   </TransitionRoot>
 </template>
-
-<script lang="ts" setup>
-import type { INavItem } from '~~/types'
-
-interface Props {
-  sidebarOpen: boolean
-  navItems: INavItem[]
-}
-
-interface Emits {
-  (e: 'sidebarClose'): void
-}
-
-defineProps<Props>()
-
-const emit = defineEmits<Emits>()
-
-const { isDark } = useDarkMode()
-
-function onClose() {
-  emit('sidebarClose')
-}
-</script>

@@ -1,3 +1,15 @@
+<script setup lang="ts">
+import { UserGroupIcon } from '@heroicons/vue/outline'
+
+definePageMeta({
+  title: 'admin.providers_page.title',
+  layout: 'admin',
+  routeName: 'routes.providers',
+  icon: UserGroupIcon,
+  isMenuRoute: true,
+})
+</script>
+
 <template>
   <div class="mt-8 flex flex-col">
     <BaseTable
@@ -48,15 +60,3 @@
     </BaseTable>
   </div>
 </template>
-
-<script setup lang="ts">
-import { UserGroupIcon } from '@heroicons/vue/outline'
-
-definePageMeta({
-  title: 'admin.providers_page.title',
-  layout: 'admin',
-  routeName: 'routes.providers',
-  icon: UserGroupIcon,
-  isMenuRoute: true,
-})
-</script>

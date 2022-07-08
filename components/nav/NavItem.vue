@@ -1,3 +1,13 @@
+<script lang="ts" setup>
+import type { INavItem } from '~~/types'
+
+interface Props {
+  item: INavItem
+}
+
+defineProps<Props>()
+</script>
+
 <template>
   <NuxtLink
     :to="item.href"
@@ -13,13 +23,3 @@
     {{ item.name }}
   </NuxtLink>
 </template>
-
-<script lang="ts" setup>
-import type { INavItem } from '~~/types'
-
-interface Props {
-  item: INavItem
-}
-
-defineProps<Props>()
-</script>

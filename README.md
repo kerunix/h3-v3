@@ -5,14 +5,14 @@ Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
 ## Features
 
 - Vue 3 + Nuxt 3 as the base UI framework
+- Axios with a dedicated plugin + hook for API requests (auto imported)
+- VeeValidate for forms validation
 - Vite as a build tool
-- Nuxt's `$fetch` for http requests (with a wrapping composable)
 - Typescript because it's 2022
 - Tailwind CSS for styling
 - Headless UI and Heroicons for some UI comfort (auto imported)
 - ESLint for linting
 - @intlify/nuxt3 for i18n using yaml files (`useI18n` is auto imported)
-
 
 ## Setup
 

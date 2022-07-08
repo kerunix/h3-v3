@@ -1,3 +1,16 @@
+<script setup lang="ts">
+interface Props {
+  errors: (string | undefined)[]
+}
+
+const props = defineProps<Props>()
+
+const errorsWithMessages = computed(() => {
+  const filtered = props.errors.filter(error => error && error.length > 0)
+  return filtered.length > 0 ? filtered : null
+})
+</script>
+
 <template>
   <div v-if="errors.length" class="w-full bg-red-200 text-red-800 rounded border border-red-500 px-3 py-2">
     <template v-if="errorsWithMessages">
@@ -19,16 +32,3 @@
     </template>
   </div>
 </template>
-
-<script setup lang="ts">
-interface Props {
-  errors: (string | undefined)[]
-}
-
-const props = defineProps<Props>()
-
-const errorsWithMessages = computed(() => {
-  const filtered = props.errors.filter(error => error && error.length > 0)
-  return filtered.length > 0 ? filtered : null
-})
-</script>

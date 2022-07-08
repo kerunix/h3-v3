@@ -1,26 +1,3 @@
-<template>
-  <div class="relative overflow-x-auto">
-    <div v-if="pending && !error" class="absolute inset-0 my-2 bg-gray-900/20 z-20 rounded flex items-center justify-center">
-      <BaseLoader class="text-turquoise-900 h-16 w-16" />
-    </div>
-    <div class="inline-block min-w-full py-2 align-middle" :class="[pending ? 'opacity-30' : '']">
-      <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5" :class="[paginated && !error ? 'md:rounded-t' : 'rounded']">
-        <table class="min-w-full divide-y divide-gray-700">
-          <slot :data="items.data" :pending="pending" />
-        </table>
-      </div>
-      <template v-if="paginated && !error">
-        <BaseTablePagination
-          :pagination-state="paginationState"
-          @go-previous="onGoPrevious"
-          @go-next="onGoNext"
-          @go-to-page="onGoToPage"
-        />
-      </template>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import type { PaginationRequest, PaginationState, QueryState } from '~~/types'
 
@@ -83,12 +60,15 @@ const urlWithQuery = computed(() => {
   return url
 })
 
-const { data: items, error, refresh, pending } = await useAsyncData<PaginationRequest<any>>(
+const { data: items, error, refresh, pending } = await useAsyncData(
   props.url,
   () => apiGet<PaginationRequest<any>>(urlWithQuery.value),
+  {
+    transform: data => data.data,
+  },
 )
 
-watch(() => items.value, (newValue) => {
+watch(() => items.value, (newValue: PaginationRequest<any>) => {
   paginationState.current_page = newValue.current_page
   paginationState.next_page = newValue.next_page
   paginationState.prev_page = newValue.prev_page
@@ -136,3 +116,27 @@ provide(TABLE_STATE_KEY, {
   queryState,
 })
 </script>
+
+<template>
+  <div class="relative overflow-x-auto">
+    <div v-if="pending && !error" class="absolute inset-0 my-2 bg-gray-900/20 z-20 rounded flex items-center justify-center">
+      <BaseLoader class="text-turquoise-900 h-16 w-16" />
+    </div>
+    <div class="inline-block min-w-full py-2 align-middle" :class="[pending ? 'opacity-30' : '']">
+      <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5" :class="[paginated && !error ? 'md:rounded-t' : 'rounded']">
+        <table class="min-w-full divide-y divide-gray-700">
+          <!-- <pre>{{ items }}</pre> -->
+          <slot :data="items.data" :pending="pending" />
+        </table>
+      </div>
+      <template v-if="paginated && !error">
+        <BaseTablePagination
+          :pagination-state="paginationState"
+          @go-previous="onGoPrevious"
+          @go-next="onGoNext"
+          @go-to-page="onGoToPage"
+        />
+      </template>
+    </div>
+  </div>
+</template>

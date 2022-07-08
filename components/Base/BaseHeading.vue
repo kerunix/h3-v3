@@ -1,9 +1,3 @@
-<template>
-  <component :is="level" :class="classes">
-    <slot />
-  </component>
-</template>
-
 <script lang="ts" setup>
 interface Props {
   level: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
@@ -21,3 +15,9 @@ const classes = computed(() => {
   }
 })
 </script>
+
+<template>
+  <component :is="level" :class="classes">
+    <slot />
+  </component>
+</template>

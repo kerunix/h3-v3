@@ -1,3 +1,14 @@
+<script lang="ts" setup>
+const props = defineProps<{
+  modelValue: string
+}>()
+const emit = defineEmits(['update:modelValue'])
+
+const supportedLocales = ['en', 'fr']
+
+const selectedLocale = useVModel(props, 'modelValue', emit)
+</script>
+
 <template>
   <Listbox v-model="selectedLocale">
     <div class="relative">
@@ -21,14 +32,3 @@
     </div>
   </Listbox>
 </template>
-
-<script lang="ts" setup>
-const props = defineProps<{
-  modelValue: string
-}>()
-const emit = defineEmits(['update:modelValue'])
-
-const supportedLocales = ['en', 'fr']
-
-const selectedLocale = useVModel(props, 'modelValue', emit)
-</script>

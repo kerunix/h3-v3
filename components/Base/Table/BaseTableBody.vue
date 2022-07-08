@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+const { colNumber, error, isEmpty } = injectStrict(TABLE_STATE_KEY)
+</script>
+
 <template>
   <tbody class="w-full divide-y divide-gray-700/40 bg-gray-100 dark:bg-gray-800">
     <tr v-if="error">
@@ -15,7 +19,3 @@
     <slot v-else />
   </tbody>
 </template>
-
-<script lang="ts" setup>
-const { colNumber, error, isEmpty } = injectStrict(TABLE_STATE_KEY)
-</script>

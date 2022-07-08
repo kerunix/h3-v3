@@ -21,7 +21,7 @@ forms:
   fields:
     email: Email
     identifier: Email or username
-    password: Password 
+    password: Password
   errors:
     email:
       required: Your identifier is required
