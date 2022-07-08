@@ -23,8 +23,9 @@ export default function useFormSubmission(submit: (args: any) => Promise<void>) 
       isSuccess.value = true
     }
     catch (error: any) {
-      if (error?.response) {
-        submissionErrors.value.push(error.response.data.message)
+      console.error(error.data)
+      if (error.data?.message) {
+        submissionErrors.value.push(error.data.message)
         return
       }
 

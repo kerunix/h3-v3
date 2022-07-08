@@ -1,3 +1,5 @@
+import type { UseFetchOptions } from '#app'
+
 export interface LoginResponse {
   id: number
   user: number
@@ -7,3 +9,7 @@ export interface LoginResponse {
 }
 
 export interface AuthCookie extends Pick<LoginResponse, 'expiresAt' | 'token' | 'refreshToken'> { }
+
+export interface ExtendedFetchOptions<T> extends UseFetchOptions<T> {
+  authenticated?: boolean
+}

@@ -33,7 +33,9 @@ export default defineNuxtPlugin(async (nuxtApp) => {
       await setupContextFromCookies(parsed)
       return
     }
-    throwError('Unauthenticated')
+    const router = useRouter()
+
+    await router.push({ name: 'auth-login' })
   }
   catch (error) {
     console.error(error)

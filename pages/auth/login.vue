@@ -6,7 +6,7 @@ import type { AuthCookie, LoginResponse } from '~~/types'
 type LoginForm = InferType<typeof schema>
 
 const { t } = useI18n()
-const { apiGet, apiPost, setApiAuthToken } = useApi()
+const { apiGet, apiPost } = useApi()
 
 const userStore = useUserStore()
 
@@ -32,11 +32,11 @@ const {
 
 async function submit(form: LoginForm) {
   resetErrors()
-  const { data: { token, user, refreshToken, expiresAt } } = await apiPost<LoginResponse>('/auth/login', form[0])
-  authCookie.value = { token, refreshToken, expiresAt }
-  setApiAuthToken(token)
+  const { token, user, refreshToken, expiresAt } = await apiPost<LoginResponse>('/auth/login', form[0])
 
-  const { data: loggedInUser } = await apiGet<Models.User>(`/users/${user}`)
+  authCookie.value = { token, refreshToken, expiresAt }
+
+  const loggedInUser = await apiGet<Models.User>(`/users/${user}`)
 
   userStore.setCurrentUser(loggedInUser)
 
