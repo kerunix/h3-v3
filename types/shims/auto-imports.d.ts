@@ -8,6 +8,7 @@ declare global {
   const defineStore: typeof import('pinia')['defineStore']
   const getActivePinia: typeof import('pinia')['getActivePinia']
   const injectStrict: typeof import('../../utils/injectStrict')['injectStrict']
+  const intlify: typeof import('../../configs/i18n-config')['intlify']
   const mapActions: typeof import('pinia')['mapActions']
   const mapGetters: typeof import('pinia')['mapGetters']
   const mapState: typeof import('pinia')['mapState']
@@ -19,10 +20,8 @@ declare global {
   const storeToRefs: typeof import('pinia')['storeToRefs']
   const useField: typeof import('vee-validate')['useField']
   const useI18n: typeof import('vue-i18n')['useI18n']
-  const useStorage: typeof import('@vueuse/core')['useStorage']
   const useToggle: typeof import('@vueuse/core')['useToggle']
   const useUserStore: typeof import('../../stores/user.store')['useUserStore']
   const useVModel: typeof import('@vueuse/core')['useVModel']
   const vite: typeof import('../../configs/vite-config')['vite']
-  const vueI18n: typeof import('../../configs/i18n-config')['vueI18n']
 }

@@ -26,14 +26,21 @@ async function setupContextFromCookies(parsed: ParsedCookies) {
 }
 
 export default defineNuxtPlugin(async (nuxtApp) => {
-  const { ssrContext: { event: { req: { headers: { cookie } } } } } = nuxtApp
+  try {
+    const { ssrContext: { event: { req: { headers: { cookie } } } } } = nuxtApp
 
-  if (cookie) {
-    const parsed = parse(cookie)
-    await setupContextFromCookies(parsed)
-    return
+    if (cookie) {
+      const parsed = parse(cookie)
+
+      await setupContextFromCookies(parsed)
+      return
+    }
+    throwError('Unauthenticated')
   }
-  const router = useRouter()
+  catch (error) {
+    console.error(error)
+    const router = useRouter()
 
-  await router.push({ name: 'auth-login' })
+    await router.push({ name: 'auth-login' })
+  }
 })

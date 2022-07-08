@@ -74,7 +74,7 @@ watch(() => items.value, (newValue) => {
   paginationState.total = newValue.data.total
 })
 
-const isEmpty = computed(() => items.value?.data.data.length === 0)
+const isEmpty = computed(() => items.value?.data?.data.length === 0)
 
 watch(() => urlWithQuery.value, async () => await refresh())
 
