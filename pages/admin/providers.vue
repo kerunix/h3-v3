@@ -12,7 +12,7 @@ definePageMeta({
 
 <template>
   <div class="mt-8 flex flex-col">
-    <!-- <BaseTable
+    <BaseTable
       v-slot="{ data: providers }"
       default-sort="id"
       url="providers"
@@ -57,6 +57,6 @@ definePageMeta({
           </BaseTableCell>
         </tr>
       </BaseTableBody>
-    </BaseTable> -->
+    </BaseTable>
   </div>
 </template>

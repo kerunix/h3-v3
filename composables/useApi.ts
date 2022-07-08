@@ -1,31 +1,35 @@
-import type { AxiosRequestConfig, AxiosResponse } from 'axios'
+import type { UseFetchOptions } from '#app'
+import type { AuthCookie } from '~~/types'
 
 export default function useApi() {
-  const { $http } = useNuxtApp()
+  const { public: { apiBaseUrl: baseURL } } = useRuntimeConfig()
 
-  function setApiAuthToken(token: string) {
-    $http.defaults.headers.common.Authorization = `Bearer ${token}`
+  const authCookie = useCookie<AuthCookie>('us-auth', { sameSite: 'lax' })
+
+  const authHeader = computed(() => `Bearer ${authCookie.value.token}`)
+
+  function apiRequest<T>(url: string, options?: UseFetchOptions<T>) {
+    return $fetch<T>(url, { baseURL, headers: { Authorization: authHeader.value, ...options.headers }, ...options })
   }
 
-  function apiGet<T = any, R = AxiosResponse<T>, D = any>(url: string, config?: AxiosRequestConfig<D>) {
-    try {
-      return $http.get<T, R, D>(url, config)
-    }
-    catch (error) {
-      throwError(error)
-    }
+  function apiGet<T>(url: string, options?: UseFetchOptions<T>) {
+    return apiRequest(url, { baseURL, method: 'get', ...options })
   }
 
-  function apiPost<T = any, R = AxiosResponse<T>, D = any>(url: string, data?: D, config?: AxiosRequestConfig<D>) {
-    return $http.post<T, R, D>(url, data, config)
+  function apiPost<T>(url: string, options?: UseFetchOptions<T>) {
+    return apiRequest(url, { baseURL, method: 'post', ...options })
   }
 
-  function apiPatch<T = any, R = AxiosResponse<T>, D = any>(url: string, data?: D, config?: AxiosRequestConfig<D>) {
-    return $http.patch<T, R, D>(url, data, config)
+  function apiPatch<T>(url: string, options?: UseFetchOptions<T>) {
+    return apiRequest(url, { baseURL, method: 'patch', ...options })
   }
 
-  function apiDelete<T = any, R = AxiosResponse<T>, D = any>(url: string, config?: AxiosRequestConfig<D>) {
-    return $http.delete<T, R, D>(url, config)
+  function apiDelete<T>(url: string, options?: UseFetchOptions<T>) {
+    return apiRequest(url, { baseURL, method: 'delete', ...options })
+  }
+
+  function apiPut<T>(url: string, options?: UseFetchOptions<T>) {
+    return apiRequest(url, { baseURL, method: 'put', ...options })
   }
 
   return {
@@ -33,6 +37,6 @@ export default function useApi() {
     apiPost,
     apiPatch,
     apiDelete,
-    setApiAuthToken,
+    apiPut,
   }
 }
