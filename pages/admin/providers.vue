@@ -28,7 +28,7 @@
         </tr>
       </BaseTableHeader>
       <BaseTableBody>
-        <tr v-for="provider in providers.data" :key="provider.id">
+        <tr v-for="provider in providers" :key="provider.id">
           <BaseTableCell :data="provider.id" emphasize />
           <BaseTableCell :data="provider.name" />
           <BaseTableCell>

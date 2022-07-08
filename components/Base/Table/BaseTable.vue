@@ -6,7 +6,7 @@
     <div class="inline-block min-w-full py-2 align-middle" :class="[pending ? 'opacity-30' : '']">
       <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5" :class="[paginated && !error ? 'md:rounded-t' : 'rounded']">
         <table class="min-w-full divide-y divide-gray-700">
-          <slot :data="items" :pending="pending" />
+          <slot :data="items.data" :pending="pending" />
         </table>
       </div>
       <template v-if="paginated && !error">
