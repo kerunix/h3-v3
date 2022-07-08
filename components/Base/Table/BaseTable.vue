@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { AxiosResponse } from 'axios'
 import type { PaginationRequest, PaginationState, QueryState } from '~~/types'
 
 interface Props {
@@ -60,23 +61,20 @@ const urlWithQuery = computed(() => {
   return url
 })
 
-const { data: items, error, refresh, pending } = await useAsyncData(
+const { data: items, error, refresh, pending } = await useAsyncData<AxiosResponse<PaginationRequest<any>>>(
   props.url,
   () => apiGet<PaginationRequest<any>>(urlWithQuery.value),
-  {
-    transform: data => data.data,
-  },
 )
 
-watch(() => items.value, (newValue: PaginationRequest<any>) => {
-  paginationState.current_page = newValue.current_page
-  paginationState.next_page = newValue.next_page
-  paginationState.prev_page = newValue.prev_page
-  paginationState.per_page = newValue.per_page
-  paginationState.total = newValue.total
+watch(() => items.value, (newValue) => {
+  paginationState.current_page = newValue.data.current_page
+  paginationState.next_page = newValue.data.next_page
+  paginationState.prev_page = newValue.data.prev_page
+  paginationState.per_page = newValue.data.per_page
+  paginationState.total = newValue.data.total
 })
 
-const isEmpty = computed(() => items.value?.data.length === 0)
+const isEmpty = computed(() => items.value?.data.data.length === 0)
 
 watch(() => urlWithQuery.value, async () => await refresh())
 
@@ -125,8 +123,7 @@ provide(TABLE_STATE_KEY, {
     <div class="inline-block min-w-full py-2 align-middle" :class="[pending ? 'opacity-30' : '']">
       <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5" :class="[paginated && !error ? 'md:rounded-t' : 'rounded']">
         <table class="min-w-full divide-y divide-gray-700">
-          <!-- <pre>{{ items }}</pre> -->
-          <slot :data="items.data" :pending="pending" />
+          <slot :data="items.data.data" :pending="pending" />
         </table>
       </div>
       <template v-if="paginated && !error">
