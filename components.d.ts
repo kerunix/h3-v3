@@ -30,6 +30,7 @@ declare module '@vue/runtime-core' {
     MoonIconOutline: typeof import('@heroicons/vue/outline')['MoonIcon']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SearchIconOutline: typeof import('@heroicons/vue/outline')['SearchIcon']
     SunIconOutline: typeof import('@heroicons/vue/outline')['SunIcon']
     TransitionChild: typeof import('@headlessui/vue')['TransitionChild']
     TransitionRoot: typeof import('@headlessui/vue')['TransitionRoot']

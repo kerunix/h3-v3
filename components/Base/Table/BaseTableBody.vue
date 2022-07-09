@@ -16,6 +16,6 @@ const { colNumber, error, isEmpty } = injectStrict(TABLE_STATE_KEY)
         </div>
       </td>
     </tr>
-    <slot v-else />
+    <slot v-if="!error" />
   </tbody>
 </template>
