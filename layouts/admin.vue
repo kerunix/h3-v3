@@ -50,10 +50,12 @@ async function onLogoutClick() {
           <BaseColorModeSwitcher />
           <BaseLocaleSelect />
         </div>
-        <button @click="onLogoutClick">
-          <span class="sr-only">Logout</span>
-          <LogoutIconOutline class="h-6 w-6 text-gray-800 hover:text-turquoise-900 dark:text-gray-300 dark:hover:text-turquoise-400" />
-        </button>
+        <BaseTooltip content="Logout" placement="right">
+          <button @click="onLogoutClick">
+            <span class="sr-only">Logout</span>
+            <LogoutIconOutline class="h-6 w-6 text-gray-800 hover:text-turquoise-900 dark:text-gray-300 dark:hover:text-turquoise-400" />
+          </button>
+        </BaseTooltip>
       </div>
     </NavDesktop>
     <div class="flex flex-col flex-1 divide-y divide-gray-300 dark:divide-gray-700 md:pl-64 md:divide-none">
