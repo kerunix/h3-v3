@@ -14,7 +14,6 @@ declare namespace Models {
   }
 
   interface Provider extends BaseEntity {
-    $isDirty: boolean
     bic: string
     cancelPolicy: 'SOFT' | 'MEDIUM' | 'HARD'
     domains: number[]

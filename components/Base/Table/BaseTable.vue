@@ -13,6 +13,8 @@ const props = withDefaults(defineProps<Props>(), {
   searchable: true,
 })
 
+const { apiGet } = useApi()
+
 const paginationState = reactive<PaginationState>({
   current_page: 1,
   per_page: 10,
@@ -28,8 +30,6 @@ const queryState = reactive<QueryState>({
   filters: null,
   excludeFromSearch: [],
 })
-
-const { apiGet } = useApi()
 
 const headerItems = ref<string[]>([])
 const activeItem = ref(props.defaultSort)
@@ -68,20 +68,22 @@ const { data: items, error, refresh, pending } = await useAsyncData<PaginationRe
   () => apiGet<PaginationRequest<any>>(urlWithQuery.value),
 )
 
-watch(() => items.value, (newValue) => {
-  // This can be null in case of error so we check
-  if (newValue) {
-    paginationState.current_page = newValue.current_page
-    paginationState.next_page = newValue.next_page
-    paginationState.prev_page = newValue.prev_page
-    paginationState.per_page = newValue.per_page
-    paginationState.total = newValue.total
-  }
-})
-
 const isEmpty = computed(() => items.value?.data?.length === 0)
 
-watch(() => urlWithQuery.value, async () => await refresh())
+watchEffect(
+  () => {
+    paginationState.current_page = items.value.current_page
+    paginationState.next_page = items.value.next_page
+    paginationState.prev_page = items.value.prev_page
+    paginationState.per_page = items.value.per_page
+    paginationState.total = items.value.total
+  },
+)
+
+watch(
+  () => urlWithQuery.value,
+  async () => await refresh(),
+)
 
 async function onSort() {
   queryState.orderBy = activeItem.value
