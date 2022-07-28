@@ -1,5 +1,9 @@
 import type { ComputedRef, Ref } from 'vue'
 
+// Remove Symbol as a valid keyof type
+// See https://github.com/microsoft/TypeScript/issues/23724
+type ExcludeSymbolKeys<T> = Extract<keyof T, string>
+
 export interface PaginationState {
   current_page: number
   per_page: number
@@ -8,12 +12,12 @@ export interface PaginationState {
   total: number | null
 }
 
-export interface QueryState {
+export interface QueryState<T> {
   orderDir: 'desc' | 'asc'
-  orderBy: string
+  orderBy: keyof T
   search: string
-  filters: Record<string, string | string[]> | null
-  excludeFromSearch: string[]
+  filters: Record<`${ExcludeSymbolKeys<T>}_in`, string | string[]> | null
+  excludeFromSearch: ExcludeSymbolKeys<T>[] | null
 }
 
 export interface PaginationRequest<T> {
@@ -25,12 +29,12 @@ export interface PaginationRequest<T> {
   data: T[]
 }
 
-export interface TableState {
-  activeItem: Ref<string>
+export interface TableState<T> {
+  activeItem: Ref<keyof T>
   registerHeaderItem: (id: string) => void
   setActiveItem: (id: string) => Promise<void>
   colNumber: ComputedRef<number>
   error: Ref<true | Error>
   isEmpty: ComputedRef<boolean>
-  queryState: QueryState
+  queryState: QueryState<T>
 }

@@ -1,4 +1,1 @@
-import type { InjectionKey } from 'vue'
-import type { TableState } from '~~/types'
-
-export const TABLE_STATE_KEY: InjectionKey<TableState> = Symbol('table-state')
+export const TABLE_STATE_KEY = Symbol('table-state')

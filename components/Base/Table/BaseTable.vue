@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { PaginationRequest, PaginationState, QueryState } from '~~/types'
+import type { TableState } from '~~/types'
 
 interface Props {
-  defaultSort: string
+  defaultSort: keyof Models.BaseEntity
   paginated?: boolean
   searchable?: boolean
   url: string
@@ -13,90 +13,26 @@ const props = withDefaults(defineProps<Props>(), {
   searchable: true,
 })
 
-const { apiGet } = useApi()
-
-const paginationState = reactive<PaginationState>({
-  current_page: 1,
-  per_page: 10,
-  prev_page: null,
-  next_page: 2,
-  total: 60,
-})
-
-const queryState = reactive<QueryState>({
-  orderBy: 'id',
-  orderDir: 'desc',
-  search: '',
-  filters: null,
-  excludeFromSearch: [],
-})
-
-const headerItems = ref<string[]>([])
-const activeItem = ref(props.defaultSort)
+const headerItems = ref<(keyof Models.BaseEntity | never)[]>([])
+const activeItem = ref<keyof Models.BaseEntity>(props.defaultSort)
 const colNumber = computed(() => headerItems.value.length)
 
-const urlWithQuery = computed(() => {
-  let url = `${props.url}?page=${paginationState.current_page}&limit=${paginationState.per_page}&orderBy=${queryState.orderBy}&orderDir=${queryState.orderDir}`
-  // FIXME: Fix this search because the backend is throwing an error
-  // if (queryState.search) {
-  //   url += `$search=${queryState.search}`
-  // }
-  if (queryState.filters) {
-    url += `&${Object.keys(queryState.filters)
-        .map((field) => {
-          let value = queryState.filters![field]
-          if (Array.isArray(value)) {
-            value = value.join(',')
-          }
-          // Don't create empty filters.
-          if (value.length) {
-            return `filters[${field}]=${value}`
-          }
-          return null
-        })
-        .filter((filter: string | null) => filter !== null)
-        .join('&')}`
-  }
-  if (queryState.excludeFromSearch.length) {
-    url += queryState.excludeFromSearch.map(field => `&excludeFromSearch[${field}]`)
-  }
-  return url
-})
-
-const { data: items, error, refresh, pending } = await useAsyncData<PaginationRequest<any>>(
-  props.url,
-  () => apiGet<PaginationRequest<any>>(urlWithQuery.value),
-)
+const { data: items, error, paginationState, pending, queryState } = await usePaginatedRequests<Models.BaseEntity>('providers')
 
 const isEmpty = computed(() => items.value?.data?.length === 0)
 
-watchEffect(
-  () => {
-    paginationState.current_page = items.value.current_page
-    paginationState.next_page = items.value.next_page
-    paginationState.prev_page = items.value.prev_page
-    paginationState.per_page = items.value.per_page
-    paginationState.total = items.value.total
-  },
-)
+function registerHeaderItem(key: keyof Models.BaseEntity) {
+  headerItems.value.push(key)
+}
 
-watch(
-  () => urlWithQuery.value,
-  async () => await refresh(),
-)
+async function setActiveItem(key: keyof Models.BaseEntity) {
+  activeItem.value = key
+  onSort()
+}
 
-async function onSort() {
+function onSort() {
   queryState.orderBy = activeItem.value
   queryState.orderDir = queryState.orderDir === 'desc' ? 'asc' : 'desc'
-}
-
-function registerHeaderItem(id: string) {
-  headerItems.value.push(id)
-}
-
-async function setActiveItem(id: string) {
-  activeItem.value = id
-  await onSort()
 }
 
 function onGoNext() {
@@ -111,7 +47,7 @@ function onGoToPage(page: number) {
   paginationState.current_page = page
 }
 
-provide(TABLE_STATE_KEY, {
+provide<TableState<Models.BaseEntity>>(TABLE_STATE_KEY, {
   activeItem,
   registerHeaderItem,
   setActiveItem,

@@ -17,8 +17,3 @@ export function postOne(payload: ProviderPostPayload) {
 export function patchOne(id: number | string, payload: ProviderPostPayload) {
   return apiPatch<Models.Provider>('/providers', payload, { params: { id } })
 }
-
-export async function getPaginated() {
-  const { } = await usePaginatedRequests('providers')
-  return null
-}

@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { TableState } from '~~/types'
+
 interface Props {
   sortable?: boolean
   sortKey?: string
@@ -11,7 +13,12 @@ const props = withDefaults(defineProps<Props>(), {
   justify: 'left',
 })
 
-const { registerHeaderItem, activeItem, setActiveItem, queryState } = injectStrict(TABLE_STATE_KEY)
+const {
+  registerHeaderItem,
+  activeItem,
+  setActiveItem,
+  queryState,
+} = injectStrict<TableState<Models.BaseEntity>>(TABLE_STATE_KEY)
 
 const isActive = computed(() => activeItem.value === props.sortKey)
 

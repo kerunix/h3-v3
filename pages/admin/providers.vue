@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { UserGroupIcon } from '@heroicons/vue/outline'
+import { useGenericTable } from '~~/utils'
+
+const ProvidersTable = useGenericTable<Models.Provider>()
+const ProviderHeaderItem = useGenericTableHeaderItem<Models.Provider>()
 
 definePageMeta({
   title: 'admin.providers_page.title',
@@ -12,31 +16,31 @@ definePageMeta({
 
 <template>
   <div class="mt-8 flex flex-col">
-    <BaseTable
+    <ProvidersTable
       v-slot="{ data: providers }"
       default-sort="id"
       url="providers"
     >
       <BaseTableHeader>
         <tr>
-          <BaseTableHeaderItem sort-key="id">
+          <ProviderHeaderItem sort-key="id">
             ID
-          </BaseTableHeaderItem>
-          <BaseTableHeaderItem sort-key="name">
+          </ProviderHeaderItem>
+          <ProviderHeaderItem sort-key="name">
             Name
-          </BaseTableHeaderItem>
-          <BaseTableHeaderItem sort-key="status">
+          </ProviderHeaderItem>
+          <ProviderHeaderItem sort-key="status">
             Status
-          </BaseTableHeaderItem>
-          <BaseTableHeaderItem sort-key="email">
+          </ProviderHeaderItem>
+          <ProviderHeaderItem sort-key="email">
             Email
-          </BaseTableHeaderItem>
-          <BaseTableHeaderItem sort-key="customer">
+          </ProviderHeaderItem>
+          <ProviderHeaderItem :sortable="false">
             Customer
-          </BaseTableHeaderItem>
-          <BaseTableHeaderItem :sortable="false" justify="right">
+          </ProviderHeaderItem>
+          <ProviderHeaderItem :sortable="false" justify="right">
             <span>Actions</span>
-          </BaseTableHeaderItem>
+          </ProviderHeaderItem>
         </tr>
       </BaseTableHeader>
       <BaseTableBody>
@@ -57,6 +61,6 @@ definePageMeta({
           </BaseTableCell>
         </tr>
       </BaseTableBody>
-    </BaseTable>
+    </ProvidersTable>
   </div>
 </template>
