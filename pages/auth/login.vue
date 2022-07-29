@@ -36,7 +36,7 @@ async function submit(form: LoginForm) {
 
   authCookie.value = { token, refreshToken, expiresAt }
 
-  const loggedInUser = await apiGet<Models.User>(`/users/${user}`)
+  const loggedInUser = await getOne(user)
 
   userStore.setCurrentUser(loggedInUser)
 

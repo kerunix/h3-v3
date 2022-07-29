@@ -38,3 +38,5 @@ export interface TableState<T> {
   isEmpty: ComputedRef<boolean>
   queryState: QueryState<T>
 }
+
+export type PaginationUrl<T> = `${string}?page=${PaginationState['current_page']}&limit=${PaginationState['per_page']}&orderBy=${ExcludeSymbolKeys<QueryState<T>['orderBy']>}&orderDir=${ExcludeSymbolKeys<QueryState<T>['orderBy']>}`
