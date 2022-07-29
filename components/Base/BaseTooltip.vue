@@ -34,12 +34,16 @@ onMounted(() => {
 onBeforeUnmount(() => popperInstance.value.destroy())
 
 function show() {
-  tooltip.value.setAttribute('data-show', '')
-  popperInstance.value.update()
+  setTimeout(() => {
+    tooltip.value.setAttribute('data-show', '')
+    popperInstance.value.update()
+  }, 300)
 }
 
 function hide() {
-  tooltip.value.removeAttribute('data-show')
+  setTimeout(() => {
+    tooltip.value.removeAttribute('data-show')
+  }, 150)
 }
 </script>
 
