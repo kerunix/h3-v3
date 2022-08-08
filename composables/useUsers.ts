@@ -5,12 +5,11 @@ interface UserPostPayload extends Models.User {
 interface UserPatchPayload extends Models.User {
   // TODO: Define PATCH request type
 }
-
-const { apiDelete, apiGet, apiPost, apiPatch } = useApi()
-
-const BASE_URL = '/users'
-
 export default function useUsers() {
+  const { apiDelete, apiGet, apiPost, apiPatch } = useApi()
+
+  const BASE_URL = '/users'
+
   function getOne(id: number | string) {
     return apiGet<Models.User>(BASE_URL, { params: { id } })
   }

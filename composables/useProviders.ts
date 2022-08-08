@@ -5,11 +5,11 @@ interface ProviderPostPayload extends Models.Provider {
 interface ProviderPatchPayload extends Models.Provider {
   // TODO: Define PATCH request type
 }
-const { apiDelete, apiGet, apiPost, apiPatch } = useApi()
-
-const BASE_URL = '/providers'
-
 export default function useProviders() {
+  const { apiDelete, apiGet, apiPost, apiPatch } = useApi()
+
+  const BASE_URL = '/providers'
+
   function getOne(id: number | string) {
     return apiGet<Models.Provider>(BASE_URL, { params: { id } })
   }
