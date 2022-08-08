@@ -20,7 +20,10 @@ const classes = computed(() => {
 </script>
 
 <template>
-  <span class="inline-flex items-center px-2.5 py-0.5 rounded text-sm font-medium" :class="classes">
+  <span
+    class="inline-flex items-center px-2.5 py-0.5 rounded text-sm font-medium"
+    :class="classes"
+  >
     <slot />
   </span>
 </template>

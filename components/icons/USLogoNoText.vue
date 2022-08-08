@@ -2,7 +2,13 @@
 </script>
 
 <template>
-  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       d="M32 15.9994C32 24.8361 24.8361 32 16.0007 32C7.1639 32 0 24.8361 0 15.9994C0 7.1639 7.1639 0 16.0007 0C24.8361 0 32 7.1639 32 15.9994Z"
       fill="#00A4B3"

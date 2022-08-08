@@ -12,7 +12,10 @@ const errorsWithMessages = computed(() => {
 </script>
 
 <template>
-  <div v-if="errors.length" class="w-full bg-red-200 text-red-800 rounded border border-red-500 px-3 py-2">
+  <div
+    v-if="errors.length"
+    class="w-full bg-red-200 text-red-800 rounded border border-red-500 px-3 py-2"
+  >
     <template v-if="errorsWithMessages">
       <p v-if="errorsWithMessages.length > 1">
         Des erreurs sont survenues:
@@ -21,7 +24,10 @@ const errorsWithMessages = computed(() => {
         Une erreur est survenue:
       </p>
       <ul class="pl-6 list-disc">
-        <li v-for="(error, index) in errorsWithMessages" :key="index">
+        <li
+          v-for="(error, index) in errorsWithMessages"
+          :key="index"
+        >
           {{ error }}
         </li>
       </ul>

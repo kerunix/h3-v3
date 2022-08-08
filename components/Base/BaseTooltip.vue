@@ -67,7 +67,10 @@ function hide() {
     role="tooltip"
   >
     <span v-if="content">{{ content }}</span>
-    <slot v-else name="content" />
+    <slot
+      v-else
+      name="content"
+    />
   </div>
 </template>
 

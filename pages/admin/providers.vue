@@ -38,14 +38,23 @@ definePageMeta({
           <ProviderHeaderItem :sortable="false">
             Customer
           </ProviderHeaderItem>
-          <ProviderHeaderItem :sortable="false" justify="right">
+          <ProviderHeaderItem
+            :sortable="false"
+            justify="right"
+          >
             <span>Actions</span>
           </ProviderHeaderItem>
         </tr>
       </BaseTableHeader>
       <BaseTableBody>
-        <tr v-for="provider in providers" :key="provider.id">
-          <BaseTableCell :data="provider.id" emphasize />
+        <tr
+          v-for="provider in providers"
+          :key="provider.id"
+        >
+          <BaseTableCell
+            :data="provider.id"
+            emphasize
+          />
           <BaseTableCell :data="provider.name" />
           <BaseTableCell>
             <BaseStatusPill :status="provider.status">
@@ -57,7 +66,10 @@ definePageMeta({
             {{ provider.legalContactLastname }} {{ provider.legalContactFirstname }}
           </BaseTableCell>
           <BaseTableCell justify="right">
-            <a href="#" class="text-turquoise-500 hover:text-turquoise-700">Edit<span class="sr-only">, {{ provider.name }}</span></a>
+            <a
+              href="#"
+              class="text-turquoise-500 hover:text-turquoise-700"
+            >Edit<span class="sr-only">, {{ provider.name }}</span></a>
           </BaseTableCell>
         </tr>
       </BaseTableBody>

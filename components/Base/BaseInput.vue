@@ -20,7 +20,10 @@ const translatedErrorMessage = computed(() => errorMessage.value ? t(errorMessag
 
 <template>
   <div class="space-y-2">
-    <label :for="name" class="text-gray-800 dark:text-gray-100">
+    <label
+      :for="name"
+      class="text-gray-800 dark:text-gray-100"
+    >
       {{ label }}
       <span v-if="isRequired">*</span>
     </label>
@@ -34,6 +37,9 @@ const translatedErrorMessage = computed(() => errorMessage.value ? t(errorMessag
       class="appearance-none rounded relative block w-full px-3 py-2 border-2 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-turquoise-500 focus:ring-2 focus:ring-offset-transparent focus:ring-offset-2"
       :class="[translatedErrorMessage ? 'border-red-300' : 'border-transparent']"
     >
-    <span v-if="translatedErrorMessage" class="text-red-700">{{ translatedErrorMessage }}</span>
+    <span
+      v-if="translatedErrorMessage"
+      class="text-red-700"
+    >{{ translatedErrorMessage }}</span>
   </div>
 </template>

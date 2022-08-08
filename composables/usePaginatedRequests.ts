@@ -1,4 +1,4 @@
-import type { PaginationRequest, PaginationState, PaginationUrl, QueryState } from '~~/types'
+import type { PaginationRequest, PaginationState, QueryState } from '~~/types'
 
 export default async function usePaginatedRequests<T extends Record<string, any>>(baseUrl: string) {
   const { apiGet } = useApi()
@@ -20,7 +20,7 @@ export default async function usePaginatedRequests<T extends Record<string, any>
   })
 
   const urlWithQuery = computed(() => {
-    let url: PaginationUrl<T> = `${baseUrl}?page=${paginationState.current_page}&limit=${paginationState.per_page}&orderBy=${String(queryState.orderBy)}&orderDir=${queryState.orderDir}`
+    let url = `${baseUrl}?page=${paginationState.current_page}&limit=${paginationState.per_page}&orderBy=${String(queryState.orderBy)}&orderDir=${queryState.orderDir}`
     // FIXME: Fix this search because the backend is throwing an error
     // if (queryState.search) {
     //   url += `$search=${queryState.search}`

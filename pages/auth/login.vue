@@ -1,18 +1,16 @@
 <script lang="ts" setup>
 import type { InferType, TestContext } from 'yup'
 import { object, string } from 'yup'
-import type { AuthCookie, LoginResponse } from '~~/types'
+import type { AuthCookie } from '~~/types'
 
 type LoginForm = InferType<typeof schema>
 
 const { t } = useI18n()
-const { apiGet, apiPost } = useApi()
-
+const { isDark } = useDarkMode()
+const { login } = useAuth()
 const userStore = useUserStore()
 
 const authCookie = useCookie<AuthCookie>('us-auth', { sameSite: 'lax' })
-
-const { isDark } = useDarkMode()
 
 const schema = object().shape({
   email: string()
@@ -27,16 +25,14 @@ const {
   onSubmit,
   submissionErrors,
   isSubmitting,
-  resetState: resetErrors,
 } = useFormSubmission(submit)
 
 async function submit(form: LoginForm) {
-  resetErrors()
-  const { token, user, refreshToken, expiresAt } = await apiPost<LoginResponse>('/auth/login', form[0])
+  const { token, user, refreshToken, expiresAt } = await login(form[0])
 
   authCookie.value = { token, refreshToken, expiresAt }
 
-  const loggedInUser = await apiGet<Models.User>(`/users/${user}`)
+  const loggedInUser = await useUsers().getOne(user)
 
   userStore.setCurrentUser(loggedInUser)
 
@@ -64,8 +60,14 @@ function validateIdentifier(value: string | undefined, { path, createError }: Te
 
 <template>
   <div class="min-h-screen flex flex-col items-center justify-center space-y-12 py-12 px-4 bg-gray-300 dark:bg-gray-900 sm:px-6 lg:px-8">
-    <IconsUSLogoWhiteText v-if="isDark" class="h-14 md:h-20" />
-    <IconsUSLogoDarkText v-else class="h-14 md:h-20" />
+    <IconsUSLogoWhiteText
+      v-if="isDark"
+      class="h-14 md:h-20"
+    />
+    <IconsUSLogoDarkText
+      v-else
+      class="h-14 md:h-20"
+    />
     <div class="max-w-md w-full space-y-8 p-4 bg-gray-200 dark:bg-gray-800 rounded shadow-md md:p-8">
       <div class="flex flex-col items-center">
         <BaseHeading level="h1">
@@ -78,19 +80,39 @@ function validateIdentifier(value: string | undefined, { path, createError }: Te
         class="mt-8 space-y-6"
         @submit="onSubmit"
       >
-        <BaseInput name="email" type="email" :label="t('forms.fields.identifier')" autocomplete="email" is-required />
-        <BaseInput name="password" type="password" :label="t('forms.fields.password')" autocomplete="current-password" is-required />
+        <BaseInput
+          name="email"
+          type="email"
+          :label="t('forms.fields.identifier')"
+          autocomplete="email"
+          is-required
+        />
+        <BaseInput
+          name="password"
+          type="password"
+          :label="t('forms.fields.password')"
+          autocomplete="current-password"
+          is-required
+        />
         <div class="flex items-center justify-between">
           <div class="flex items-center">
             <input
-              id="remember-me" name="remember-me" type="checkbox"
+              id="remember-me"
+              name="remember-me"
+              type="checkbox"
               class="h-4 w-4 text-turquoise-600 focus:ring-turquoise-500 border-gray-300 rounded"
             >
-            <label for="remember-me" class="ml-2 block text-sm text-gray-800 dark:text-gray-100">{{ t('auth.login.remember_me') }}</label>
+            <label
+              for="remember-me"
+              class="ml-2 block text-sm text-gray-800 dark:text-gray-100"
+            >{{ t('auth.login.remember_me') }}</label>
           </div>
 
           <div class="text-sm">
-            <a href="#" class="font-medium text-turquoise-800 dark:text-turquoise-50 hover:text-turquoise-300">{{ t('auth.login.forgot_password') }}</a>
+            <a
+              href="#"
+              class="font-medium text-turquoise-800 dark:text-turquoise-50 hover:text-turquoise-300"
+            >{{ t('auth.login.forgot_password') }}</a>
           </div>
         </div>
         <BaseErrorMessage :errors="submissionErrors" />

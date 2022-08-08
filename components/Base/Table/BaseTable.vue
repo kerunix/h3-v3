@@ -61,11 +61,20 @@ provide<TableState<Models.BaseEntity>>(TABLE_STATE_KEY, {
 <template>
   <BaseTableSearch v-model="queryState.search" />
   <div class="relative overflow-x-auto">
-    <div v-if="pending && !error" class="absolute inset-0 my-2 bg-gray-900/20 z-20 rounded flex items-center justify-center">
+    <div
+      v-if="pending && !error"
+      class="absolute inset-0 my-2 bg-gray-900/20 z-20 rounded flex items-center justify-center"
+    >
       <BaseLoader class="text-turquoise-900 h-16 w-16" />
     </div>
-    <div class="inline-block min-w-full py-2 align-middle" :class="[pending ? 'opacity-30' : '']">
-      <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5" :class="[paginated && !error ? 'md:rounded-t' : 'rounded']">
+    <div
+      class="inline-block min-w-full py-2 align-middle"
+      :class="[pending ? 'opacity-30' : '']"
+    >
+      <div
+        class="overflow-hidden shadow ring-1 ring-black ring-opacity-5"
+        :class="[paginated && !error ? 'md:rounded-t' : 'rounded']"
+      >
         <table class="min-w-full divide-y divide-gray-700">
           <slot :data="items?.data" />
         </table>

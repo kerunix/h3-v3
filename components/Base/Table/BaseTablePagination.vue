@@ -102,15 +102,24 @@ function onGoToPage(page: number) {
         </p>
       </div>
       <div>
-        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+        <nav
+          class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
+          aria-label="Pagination"
+        >
           <button
             class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 dark:border-gray-800 text-gray-900 bg-gray-100 dark:bg-gray-700 hover:text-gray-700 dark:text-gray-300 hover:bg-turquoise-500/10 dark:hover:text-turquoise-400"
             @click="onGoPrevious"
           >
             <span class="sr-only">Previous</span>
-            <ChevronLeftIconOutline class="h-5 w-5" aria-hidden="true" />
+            <ChevronLeftIconOutline
+              class="h-5 w-5"
+              aria-hidden="true"
+            />
           </button>
-          <template v-for="(page, index) in paginationLinks" :key="index">
+          <template
+            v-for="(page, index) in paginationLinks"
+            :key="index"
+          >
             <button
               v-if="page"
               :class="[paginationState.current_page === page ? 'bg-turquoise-500 text-gray-50 dark:bg-turquoise-900 dark:text-white' : 'text-gray-900 bg-gray-100 dark:bg-gray-700 hover:text-gray-700 dark:text-gray-300 hover:bg-turquoise-500/10 dark:hover:text-turquoise-400']"
@@ -131,7 +140,10 @@ function onGoToPage(page: number) {
             @click="onGoNext"
           >
             <span class="sr-only">Next</span>
-            <ChevronRightIconOutline class="h-5 w-5" aria-hidden="true" />
+            <ChevronRightIconOutline
+              class="h-5 w-5"
+              aria-hidden="true"
+            />
           </button>
         </nav>
       </div>

@@ -49,16 +49,31 @@ onMounted(() => {
 </script>
 
 <template>
-  <th scope="col" class="px-4 py-4 text-sm font-semibold text-gray-900 dark:text-gray-50 md:px-6 md:py-5" :class="alignmentClasses">
-    <button class="group inline-flex" @click="onClick">
+  <th
+    scope="col"
+    class="px-4 py-4 text-sm font-semibold text-gray-900 dark:text-gray-50 md:px-6 md:py-5"
+    :class="alignmentClasses"
+  >
+    <button
+      class="group inline-flex"
+      @click="onClick"
+    >
       <slot />
       <span
         v-if="sortable"
         class="ml-2 flex-none rounded"
         :class="[isActive ? 'bg-gray-300 text-gray-700' : 'text-gray-400']"
       >
-        <ChevronDownIconOutline v-if="queryState.orderDir === 'desc'" class="h-5 w-5" aria-hidden="true" />
-        <ChevronUpIconOutline v-else class="h-5 w-5" aria-hidden="true" />
+        <ChevronDownIconOutline
+          v-if="queryState.orderDir === 'desc'"
+          class="h-5 w-5"
+          aria-hidden="true"
+        />
+        <ChevronUpIconOutline
+          v-else
+          class="h-5 w-5"
+          aria-hidden="true"
+        />
       </span>
     </button>
   </th>

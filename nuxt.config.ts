@@ -1,5 +1,5 @@
 import { defineNuxtConfig } from 'nuxt'
-import { colorMode, intlify, runtimeConfig, vite } from './configs'
+import { colorMode, googleFonts, intlify, runtimeConfig, vite } from './configs'
 
 /**
  * Don't add any hardcoded config in here, instead extract it in its own file in ./configs and export it from ./configs/index.ts
@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@intlify/nuxt3',
     '@nuxtjs/color-mode',
+    '@nuxtjs/google-fonts',
   ],
   buildModules: [
     '@pinia/nuxt',
@@ -18,4 +19,5 @@ export default defineNuxtConfig({
   runtimeConfig,
   vite,
   intlify,
+  googleFonts,
 })
