@@ -6,7 +6,7 @@ declare global {
   const TABLE_STATE_KEY: typeof import('../../constants/injection-keys')['TABLE_STATE_KEY']
   const UsersApi: typeof import('../../api/users')['UsersApi']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
-  const getFilterStringFromState: typeof import('../../utils/paginationState')['addFilters']
+  const addFilters: typeof import('../../utils/paginationState')['addFilters']
   const colorMode: typeof import('../../configs/colorMode.config')['colorMode']
   const createPinia: typeof import('pinia')['createPinia']
   const defineStore: typeof import('pinia')['defineStore']
