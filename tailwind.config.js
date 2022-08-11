@@ -8,7 +8,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Montserrat', ...defaultTheme.fontFamily.sans],
-        title: ['Oswald', ...defaultTheme.fontFamily.sans],
+        title: ['Lato', ...defaultTheme.fontFamily.sans],
       },
       colors: {
         turquoise: {
