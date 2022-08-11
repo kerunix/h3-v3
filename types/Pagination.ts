@@ -38,3 +38,5 @@ export interface TableState<T> {
   isEmpty: ComputedRef<boolean>
   queryState: QueryState<T>
 }
+
+export type PaginationQuery<T> = PaginationState & QueryState<T>

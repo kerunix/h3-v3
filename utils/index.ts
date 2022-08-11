@@ -1,3 +1,5 @@
 export * from './injectStrict'
 export * from './genericTable'
 export * from './genericTableHeaderItem'
+export * from './paginationState'
+export * from './typeGuards'
