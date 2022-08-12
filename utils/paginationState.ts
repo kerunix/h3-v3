@@ -20,7 +20,7 @@ export function getInitialQueryStateFromRouteQuery<T>(routeQuery: PaginationQuer
   }
 }
 
-export function addFilters<T>(filters: QueryState<T>['filters']) {
+export function getFilterStringFromState<T>(filters: QueryState<T>['filters']) {
   return `&${Object.keys(filters)
     .map((field) => {
       let value = filters[field]

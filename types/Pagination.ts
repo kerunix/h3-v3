@@ -1,8 +1,5 @@
 import type { ComputedRef, Ref } from 'vue'
-
-// Remove Symbol as a valid keyof type
-// See https://github.com/microsoft/TypeScript/issues/23724
-type ExcludeSymbolKeys<T> = Extract<keyof T, string>
+import type { ExcludeSymbolKeys } from './Utils'
 
 export interface PaginationState {
   current_page: number

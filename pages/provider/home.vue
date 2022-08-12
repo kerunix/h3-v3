@@ -12,5 +12,5 @@ definePageMeta({
 </script>
 
 <template>
-  <p>WESH</p>
+  <DomainsLastBookings />
 </template>

@@ -5,8 +5,8 @@ type ParsedCookies = Record<string, string>
 
 async function setupAuth(parsedCookies: ParsedCookies) {
   const router = useRouter()
-  const { apiGet } = useApi()
-  const userStore = useUserStore()
+  const { getOne: getUser } = useUsersApi()
+  const { getAll: getDomain } = useDomainsApi()
 
   // If no cookies were parsed, redirect to login
   if (!parsedCookies['us-auth']) {
@@ -14,17 +14,19 @@ async function setupAuth(parsedCookies: ParsedCookies) {
     return
   }
 
-  // Parse the cookie from json and save it in the SSR friendly cookie state using `useCookie`
+  // Parse the cookie from json and persist it in the SSR friendly cookie state using `useCookie`
   const authCookie: AuthCookie = JSON.parse(parsedCookies['us-auth'])
   const frontCookie = useCookie<AuthCookie>('us-auth', { sameSite: 'lax' })
   frontCookie.value = authCookie
 
   // Get the connected user and set up basic user store
-  const user = await apiGet<Models.User>(`/users/${authCookie.user}`)
-  userStore.setCurrentUser(user)
+  const user = await getUser(authCookie.user)
+  useUserStore().setCurrentUser(user)
 
+  // If the user is a provider, fetch the domain and persist it
   if (user.roles.includes('USER')) {
-    // TODO: fetch domain and save it in state
+    const domain = await getDomain()[0]
+    useDomainStore().setCurrentDomain(domain)
   }
 }
 

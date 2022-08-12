@@ -32,7 +32,7 @@ async function submit(form: LoginForm) {
 
   authCookie.value = { token, refreshToken, expiresAt, user }
 
-  const loggedInUser = await useUsers().getOne(user)
+  const loggedInUser = await useUsersApi().getOne(user)
 
   userStore.setCurrentUser(loggedInUser)
 
