@@ -11,6 +11,7 @@ definePageMeta({
   routeName: 'routes.providers',
   icon: UserGroupIcon,
   isMenuRoute: true,
+  isAdminRoute: true,
 })
 </script>
 

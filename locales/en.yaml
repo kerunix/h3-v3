@@ -7,12 +7,17 @@ auth:
 routes:
   domains: Domains
   providers: Providers
+  home: Home
 
 admin:
   providers_page:
     title: Unicstay providers
   domains_page:
     title: Unicstay domains
+
+provider:
+  home_page:
+    title: Home
 
 actions:
   validate: Validate

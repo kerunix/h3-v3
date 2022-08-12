@@ -11,7 +11,7 @@ export default function useUsers() {
   const BASE_URL = '/users'
 
   function getOne(id: number | string) {
-    return apiGet<Models.User>(BASE_URL, { params: { id } })
+    return apiGet<Models.User>(`${BASE_URL}/${id}`)
   }
 
   function deleteOne(id: number | string) {

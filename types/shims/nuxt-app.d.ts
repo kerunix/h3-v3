@@ -6,6 +6,7 @@ declare module '#app' {
     routeName?: string,
     icon?: FunctionalComponent,
     isMenuRoute: boolean,
+    isAdminRoute: boolean,
   }
 }
 

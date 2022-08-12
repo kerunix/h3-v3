@@ -7,6 +7,7 @@ definePageMeta({
   routeName: 'routes.domains',
   icon: UsersIcon,
   isMenuRoute: true,
+  isAdminRoute: true,
 })
 </script>
 

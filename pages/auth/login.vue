@@ -30,14 +30,20 @@ const {
 async function submit(form: LoginForm) {
   const { token, user, refreshToken, expiresAt } = await login(form[0])
 
-  authCookie.value = { token, refreshToken, expiresAt }
+  authCookie.value = { token, refreshToken, expiresAt, user }
 
   const loggedInUser = await useUsers().getOne(user)
 
   userStore.setCurrentUser(loggedInUser)
 
+  if (loggedInUser.roles.includes('ADMIN')) {
+    await navigateTo({
+      name: 'admin-providers',
+    })
+    return
+  }
   await navigateTo({
-    name: 'admin-providers',
+    name: 'provider-home',
   })
 }
 

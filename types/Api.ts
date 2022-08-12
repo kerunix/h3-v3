@@ -8,7 +8,7 @@ export interface LoginResponse {
   expiresAt: string
 }
 
-export interface AuthCookie extends Pick<LoginResponse, 'expiresAt' | 'token' | 'refreshToken'> { }
+export interface AuthCookie extends Pick<LoginResponse, 'expiresAt' | 'token' | 'refreshToken' | 'user'> { }
 
 export interface ExtendedFetchOptions<T> extends UseFetchOptions<T> {
   authenticated?: boolean
